@@ -3,15 +3,15 @@ import Head from 'next/head'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
-import { marked } from 'marked'
+const marked = require('marked')
 import parse from 'html-react-parser'
 
 const Home: NextPage = () => {
   const router = useRouter()
-  const [value, setValue] = useState(null)
+  const [value, setValue] = useState('')
 
   useEffect(() => {
-    if (router.query.url) {
+    if (typeof router.query.url === 'string') {
       fetch(router.query.url)
         .then((data) => data.text())
         .then((text) => setValue(text))
